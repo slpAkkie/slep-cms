@@ -1,3 +1,4 @@
+const conf = require( './gulp.config.js' )
 const gulp = require( 'gulp' )
 const plumber = require( 'gulp-plumber' )
 const sass = require( 'gulp-sass' )
@@ -20,5 +21,5 @@ module.exports = function style() {
     } ) )
     .pipe( sourcemaps.write() )
     .pipe( rename( { suffix: '.min' } ) )
-    .pipe( gulp.dest( 'build/manager/css' ) )
+    .pipe( gulp.dest( conf.buildPath + '/manager/css' ) )
 }

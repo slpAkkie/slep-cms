@@ -1,3 +1,4 @@
+const conf = require( './gulp.config.js' )
 const gulp = require( 'gulp' )
 const plumber = require( 'gulp-plumber' )
 const sourcemaps = require( 'gulp-sourcemaps' )
@@ -11,5 +12,5 @@ module.exports = function script() {
     .pipe( sourcemaps.init() )
     .pipe( uglify() )
     .pipe( sourcemaps.write() )
-    .pipe( gulp.dest( 'build/manager/js' ) )
+    .pipe( gulp.dest( conf.buildPath + '/manager/js' ) )
 }

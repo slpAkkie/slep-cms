@@ -1,3 +1,4 @@
+const conf = require( './gulp.config.js' )
 const gulp = require( 'gulp' )
 const imagemin = require( 'gulp-imagemin' )
 
@@ -17,5 +18,5 @@ module.exports = function imageMinify() {
         ]
       } )
     ] ) )
-    .pipe( gulp.dest( 'build/manager/img' ) )
+    .pipe( gulp.dest( conf.buildPath + '/manager/img' ) )
 }
