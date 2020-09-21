@@ -1,5 +1,7 @@
 <?php
 
+require_once(SLEP_CONTROLLER_PATH . 'Controller.php');
+
 /**
  * Контреллер на случай, когда на запрос была найдена страница
  *
@@ -11,4 +13,19 @@
  * Возвращает ответ клиенту в виде страницы
  */
 
-class WebController extends Controller { }
+class WebController extends Controller {
+
+  /**
+   * Реализует абстрактный метод класса Controller
+   */
+  public function __construct($options = array()) {
+    return;
+  }
+
+  /**
+   * Реализует абстрактный метод класса Controller
+   */
+  public function start() {
+    return;
+  }
+}
