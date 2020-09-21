@@ -1,4 +1,5 @@
 # Объявляем правила перезаписи для переадресации запросов на index.php
+
 RewriteEngine on
 RewriteBase /
 
