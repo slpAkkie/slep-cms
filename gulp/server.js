@@ -26,7 +26,7 @@ module.exports = function server( cb ) {
   gulp.watch( 'src/manager/styles/**/*.scss', gulp.series( styles, /** cb => gulp.src( 'build/css' ).pipe( serve.stream() ).on( 'end', cb ) */ ) )
   gulp.watch( 'src/manager/js/**/*.js', gulp.series( script, /** readyReload */ ) )
   gulp.watch( 'src/**/*.php', gulp.series( php, /** readyReload */ ) )
-  gulp.watch( 'src/**/*.htaccess', gulp.series( htaccess, /** readyReload */ ) )
+  gulp.watch( 'src/**/.htaccess', gulp.series( htaccess, /** readyReload */ ) )
   gulp.watch( 'src/manager/pages/**/*.pug', gulp.series( pug2html, /** readyReload */ ) )
 
   return cb()
