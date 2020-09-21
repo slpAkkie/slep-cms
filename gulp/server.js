@@ -7,27 +7,27 @@ const script = require( './script' )
 const php = require( './php.js' )
 const htaccess = require( './.htaccess.js' )
 
-const serve = require( 'browser-sync' ).create()
+// const serve = require( 'browser-sync' ).create()
 
-function readyReload( cb ) {
-  serve.reload()
-  cb()
-}
+// function readyReload( cb ) {
+//   serve.reload()
+//   cb()
+// }
 
 module.exports = function server( cb ) {
-  serve.init( {
-    server: 'build',
-    notify: false,
-    open: true,
-    cors: true
-  } )
+  // serve.init( {
+  //   server: 'build',
+  //   notify: false,
+  //   open: true,
+  //   cors: true
+  // } )
 
-  gulp.watch( 'src/manager/img/**/*.{gif,png,jpg,svg,webp}', gulp.series( imageMinify, readyReload ) )
-  gulp.watch( 'src/manager/styles/**/*.scss', gulp.series( styles, cb => gulp.src( 'build/css' ).pipe( serve.stream() ).on( 'end', cb ) ) )
-  gulp.watch( 'src/manager/js/**/*.js', gulp.series( script, readyReload ) )
-  gulp.watch( 'src/**/*.php', gulp.series( php, readyReload ) )
-  gulp.watch( 'src/**/*.htaccess', gulp.series( htaccess, readyReload ) )
-  gulp.watch( 'src/manager/pages/**/*.pug', gulp.series( pug2html, readyReload ) )
+  gulp.watch( 'src/manager/img/**/*.{gif,png,jpg,svg,webp}', gulp.series( imageMinify, /** readyReload */ ) )
+  gulp.watch( 'src/manager/styles/**/*.scss', gulp.series( styles, /** cb => gulp.src( 'build/css' ).pipe( serve.stream() ).on( 'end', cb ) */ ) )
+  gulp.watch( 'src/manager/js/**/*.js', gulp.series( script, /** readyReload */ ) )
+  gulp.watch( 'src/**/*.php', gulp.series( php, /** readyReload */ ) )
+  gulp.watch( 'src/**/*.htaccess', gulp.series( htaccess, /** readyReload */ ) )
+  gulp.watch( 'src/manager/pages/**/*.pug', gulp.series( pug2html, /** readyReload */ ) )
 
   return cb()
 }
