@@ -8,10 +8,11 @@ const script = require( './gulp/script' )
 const fonts = require( './gulp/fonts' )
 const imageMinify = require( './gulp/imageMinify' )
 const clean = require( './gulp/clean' )
-const php = require( './gulp/php' )
+const php = require( './gulp/php.js' )
+const htaccess = require( './gulp/.htaccess.js' )
 
 
-const build = gulp.parallel( pug2html, styles, script, fonts, imageMinify, php )
+const build = gulp.parallel( pug2html, styles, script, fonts, imageMinify, php, htaccess )
 
 const cleanBuild = gulp.series( clean, build )
 
