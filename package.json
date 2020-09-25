@@ -5,9 +5,7 @@
   "main": "gulpfile.js",
   "scripts": {
     "cleanDev": "gulp cleanDev",
-    "dev": "gulp dev",
-    "build": "gulp build",
-    "imgMin": "gulp imgMin"
+    "build": "gulp build"
   },
   "author": "slpAkkie",
   "license": "MIT",
