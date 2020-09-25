@@ -7,9 +7,10 @@
  * @version 0.0.1
  */
 
-require_once('./vendor/autoload.php');
+namespace App\Core;
 
-use App\Core\Router;
-
-echo('<pre>');
-$router = new Router($_SERVER['REQUEST_URI']);
+class Router {
+  public function __construct($request) {
+    echo $request;
+  }
+}
