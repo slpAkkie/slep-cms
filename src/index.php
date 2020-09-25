@@ -10,6 +10,13 @@
 require_once('./vendor/autoload.php');
 
 use App\Core\Router;
+use App\Helper\DI;
 
-echo('<pre>');
-$router = new Router($_SERVER['REQUEST_URI']);
+
+echo '<pre>';
+
+
+$di = new DI();
+
+$router = new Router($di);
+$router->dissasemble();
