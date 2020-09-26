@@ -11,13 +11,17 @@ namespace Core;
 
 use Helper\DI;
 
+
+
+
+
 /**
  * Класс Router
  *
  * Разбирает запрос и определяет запрашиваемый контекст и страницу
  */
-class Router
-{
+class Router {
+
 
   /**
    * Экземпляр класса DI
@@ -26,6 +30,7 @@ class Router
    */
   private $di;
 
+
   /**
    * Полный URL, по которому был произведен запрос
    *
@@ -33,12 +38,14 @@ class Router
    */
   private $URL;
 
+
   /**
    * Запрос
    *
    * @var string
    */
   private $request;
+
 
   /**
    * Разобранный запрос
@@ -48,17 +55,19 @@ class Router
   private $dRequest;
 
 
+
   /**
    * Инициализация DI, URL и request
    *
    * @param DI $di Объект класса DI
    */
-  public function __construct($di) {
+  public function __construct( $di ) {
     $this->di = $di;
 
     $this->URL = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
     $this->request = $_SERVER['REQUEST_URI'];
   }
+
 
 
   /**
@@ -67,29 +76,30 @@ class Router
    * @return array Запрошенный путь [path] и переданные аргументы [args]
    */
   public function dissasemble() {
-    if (!$this->checkURL()) die('Был передан не правильный запрос');
+    if ( !$this->checkURL() ) die( 'Был передан не правильный запрос' );
 
     /**
      * Разобьем на две части: Запрос и аргументы
      */
-    $requestArray = explode('?', $this->request);
+    $requestArray = explode( '?', $this->request );
 
     /**
      * Запишем какой путь был запрошен
      */
-    $this->dRequest['path'] = explode('/', $this->normilizeRequest($requestArray[0]));
+    $this->dRequest['path'] = explode( '/', $this->normilizeRequest( $requestArray[0] ) );
 
     /**
      * Определим переданные аргументы
      */
-    $requestArray[1] = explode('&', $requestArray[1]);
-    foreach ($requestArray[1] as $i => $arg) {
-      [$key, $value] = explode('=', $arg);
+    $requestArray[1] = explode( '&', $requestArray[1] );
+    foreach ( $requestArray[1] as $i => $arg ) {
+      [$key, $value] = explode( '=', $arg );
       $this->dRequest['args'][$key] = $value;
     }
 
     return $this->dRequest;
   }
+
 
 
   /**
@@ -98,8 +108,9 @@ class Router
    * @return bool
    */
   private function checkURL() {
-    return preg_match('/^(https?:\/\/|http?:\/\/)?([\d\w\.-]+)\.([a-z0-9]{2,6}\.?)(\/[\w\.]+)*\/?(\?[\w\d=&]*){0,1}$/', $this->URL);
+    return preg_match( '/^(https?:\/\/|http?:\/\/)?([\d\w\.-]+)\.([a-z0-9]{2,6}\.?)(\/[\w\.]+)*\/?(\?[\w\d=&]*){0,1}$/', $this->URL );
   }
+
 
 
   /**
@@ -109,8 +120,8 @@ class Router
    *
    * @return string
    */
-  private function normilizeRequest($path) {
-    return preg_replace('/^(\/(.*)\/|\/(.*))$/', '$2$3', $path);
+  private function normilizeRequest( $path ) {
+    return preg_replace( '/^(\/(.*)\/|\/(.*))$/', '$2$3', $path );
   }
 
 

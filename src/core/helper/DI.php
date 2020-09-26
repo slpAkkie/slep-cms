@@ -9,6 +9,10 @@
 
 namespace Helper;
 
+
+
+
+
 /**
  * Класс Dependencies Injection
  *
@@ -16,10 +20,13 @@ namespace Helper;
  */
 class DI {
 
+
+
   /**
    * Ассоциативный массив всех зависимостей
    */
   private $container = array();
+
 
 
   /**
@@ -29,9 +36,12 @@ class DI {
    *
    * @return any - Возвращает зависимость любого типа или null если такой зависимости нет
    */
-  public function get($key) {
-    return $this->isset($key) ? $this->$container[$key] : null;
+  public function get( $key ) {
+    return  $this->isset( $key )
+            ? $this->$container[$key]
+            : null;
   }
+
 
 
   /**
@@ -42,11 +52,12 @@ class DI {
    *
    * @return Возвращает экземляр класса DI
    */
-  public function set($key, $value) {
+  public function set( $key, $value ) {
     $this->$list[$key] = $value;
 
     return $this;
   }
+
 
 
   /**
@@ -56,9 +67,12 @@ class DI {
    *
    * @return bool
    */
-  private function isset($key) {
-    return $this->$container[$key] ? true : false;
+  private function isset( $key ) {
+    return  $this->$container[$key]
+            ? true
+            : false;
   }
+
 
 
 }
