@@ -97,7 +97,30 @@ class Router {
       $this->dRequest['args'][$key] = $value;
     }
 
-    return $this->dRequest;
+    /**
+     * Определим запрошенный контроллер
+     */
+    $this->identController();
+
+    /**
+     * Сохраним в зависимости разобранный запрос
+     */
+    $this->di->set('requestData', $this->dRequest);
+  }
+
+
+
+  /**
+   * Определяет контроллер
+   * По умолчанию устанавливается контроллер Web, если был найден запрошенный контроллер, то устанавливается он
+   */
+  private function identController() {
+    $this->dRequest['controller'] = 'Web';
+
+    if ( !$this->dRequest['path'][0] ) return;
+
+    if ( !file_exists( __DIR__ . 'Controllers/' . ucfirst( $this->dRequest['path'][0] ) . '_Controller.php' ) ) return;
+    else $this->dRequest['controller'] = ucfirst( $this->dRequest['path'][0] );
   }
 
 
