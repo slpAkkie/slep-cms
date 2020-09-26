@@ -14,6 +14,7 @@ class ComposerStaticInitc43efd02b15bb2fad28483508b46863b
         'C' => 
         array (
             'Core\\' => 5,
+            'Controllers\\' => 12,
         ),
         'A' => 
         array (
@@ -29,6 +30,10 @@ class ComposerStaticInitc43efd02b15bb2fad28483508b46863b
         'Core\\' => 
         array (
             0 => __DIR__ . '/../..' . '/core',
+        ),
+        'Controllers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core/Controllers',
         ),
         'App\\' => 
         array (
