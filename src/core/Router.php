@@ -36,9 +36,16 @@ class Router
   /**
    * Запрос
    *
-   * @var string|array
+   * @var string
    */
   private $request;
+
+  /**
+   * Разобранный запрос
+   *
+   * @var array
+   */
+  private $dRequest;
 
 
   /**
@@ -55,18 +62,33 @@ class Router
 
 
   /**
-   * Work in progress
+   * Разбирает запрос
+   *
+   * @return array Запрошенный путь [path] и переданные аргументы [args]
    */
   public function dissasemble() {
     if (!$this->checkURL()) die('Был передан не правильный запрос');
 
-    $this->request = explode('?', $this->request);
+    /**
+     * Разобьем на две части: Запрос и аргументы
+     */
+    $requestArray = explode('?', $this->request);
 
-    if (count($this->request) > 2) die('Был передан не правильный запрос');
+    /**
+     * Запишем какой путь был запрошен
+     */
+    $this->dRequest['path'] = explode('/', $this->normilizeRequest($requestArray[0]));
 
-    $this->request[0] = $this->normilizeRequest($this->request[0]);
+    /**
+     * Определим переданные аргументы
+     */
+    $requestArray[1] = explode('&', $requestArray[1]);
+    foreach ($requestArray[1] as $i => $arg) {
+      [$key, $value] = explode('=', $arg);
+      $this->dRequest['args'][$key] = $value;
+    }
 
-    print_r($this->request);
+    return $this->dRequest;
   }
 
 
@@ -76,7 +98,7 @@ class Router
    * @return bool
    */
   private function checkURL() {
-    return preg_match('/^(https?:\/\/|http?:\/\/)?([\d\w\.-]+)\.([a-z0-9]{2,6}\.?)(\/[\w\.]+)*\/?(\?[\w\d=]*){0,1}$/', $this->URL);
+    return preg_match('/^(https?:\/\/|http?:\/\/)?([\d\w\.-]+)\.([a-z0-9]{2,6}\.?)(\/[\w\.]+)*\/?(\?[\w\d=&]*){0,1}$/', $this->URL);
   }
 
 
