@@ -53,7 +53,7 @@ class DI {
    * @return Возвращает экземляр класса DI
    */
   public function set( $key, $value ) {
-    $this->$list[$key] = $value;
+    $this->container[$key] = $value;
 
     return $this;
   }
