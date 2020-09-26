@@ -119,7 +119,7 @@ class Router {
 
     if ( !$this->dRequest['path'][0] ) return;
 
-    if ( !file_exists( __DIR__ . 'Controllers/' . ucfirst( $this->dRequest['path'][0] ) . '_Controller.php' ) ) return;
+    if ( !file_exists( __DIR__ . '\\Controllers\\' . ucfirst( $this->dRequest['path'][0] ) . '_Controller.php' ) ) return;
     else $this->dRequest['controller'] = ucfirst( $this->dRequest['path'][0] );
   }
 
