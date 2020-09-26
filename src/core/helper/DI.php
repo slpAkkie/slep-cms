@@ -7,7 +7,7 @@
  * @version 0.0.2
  */
 
-namespace App\Helper;
+namespace Helper;
 
 /**
  * Класс Dependencies Injection
