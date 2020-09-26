@@ -9,7 +9,7 @@
 
 namespace Core;
 
-use App\Helper\DI;
+use Helper\DI;
 
 /**
  * Класс Router
