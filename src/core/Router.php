@@ -7,7 +7,7 @@
  * @version 0.0.1
  */
 
-namespace App\Core;
+namespace Core;
 
 use App\Helper\DI;
 

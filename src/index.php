@@ -9,8 +9,8 @@
 
 require_once('./vendor/autoload.php');
 
-use App\Core\Router;
-use App\Helper\DI;
+use Core\Router;
+use Helper\DI;
 
 
 echo '<pre>';
