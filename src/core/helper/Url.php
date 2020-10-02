@@ -61,9 +61,9 @@ class URL
    *
    * @return bool
    */
-  public function validate()
+  public static function validate( $url )
   {
-    return preg_match( '/^(https?:\/\/|http?:\/\/)?([\d\w\.-]+)\.([a-z0-9]{2,6}\.?)(\/[\w\.]+)*\/?(\?[\w\d=&]*){0,1}$/', $this->initial );
+    return preg_match( '/^(https?:\/\/|http?:\/\/)?([\d\w\.-]+)\.([a-z0-9]{2,6}\.?)(\/[\w\.]+)*\/?(\?[\w\d=&]*){0,1}$/', $url );
   }
 
 
