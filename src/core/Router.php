@@ -92,8 +92,11 @@ class Router
     foreach ( $requestArray[1] as $i => $arg )
     {
       [$key, $value] = explode( '=', $arg );
+      if ( !$value ) continue;
       $this->request['args'][$key] = $value;
     }
+
+    if ( !isset( $this->request['args']['action'] ) ) $this->request['args']['action'] = 'main';
 
     /**
      * Определим запрошенный контроллер
@@ -125,11 +128,10 @@ class Router
     if ( !$this->request['path'][0] )
     {
       $this->request['path'][0] = 'index';
-      return;
-    }
+    } elseif ( file_exists( __DIR__ . '\\Controllers\\' . ucfirst( $this->request['path'][0] ) . '_Controller.php' ) )
+      $this->request['controller'] = ucfirst( $this->request['path'][0] );
 
-    if ( !file_exists( __DIR__ . '\\Controllers\\' . ucfirst( $this->request['path'][0] ) . '_Controller.php' ) ) return;
-    else $this->request['controller'] = ucfirst( $this->request['path'][0] );
+    $this->request['controller'] .=  '_Controller.php';
   }
 
 
