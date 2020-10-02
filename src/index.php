@@ -23,3 +23,7 @@ $di = new DI();
 
 $router = new Router( $di );
 $router->dissasemble();
+
+require_once('./core/Controllers/' . $di->get('request')->getControllerFileName());
+$controllerName = $di->get('request')->getControllerName();
+($controller = new $controllerName( $di ))->run();
