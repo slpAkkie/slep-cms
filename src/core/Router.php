@@ -88,14 +88,10 @@ class Router
     /**
      * Определим переданные аргументы
      */
-    $requestArray[1] = explode( '&', $requestArray[1] );
-    foreach ( $requestArray[1] as $i => $arg )
-    {
-      [$key, $value] = explode( '=', $arg );
-      if ( !$value ) continue;
-      $this->request['args'][$key] = $value;
-    }
-
+    $requestArray[1] && $this->setArgs($requestArray[1]);
+    /**
+     * Если не было action, то установим его сами
+     */
     if ( !isset( $this->request['args']['action'] ) ) $this->request['args']['action'] = 'main';
 
     /**
@@ -113,6 +109,22 @@ class Router
                                           $this->request['args'],
                                           $this->request['controller']
                                           ) );
+  }
+
+
+
+  /**
+   * Устанавливает аргументы исходя из запроса
+   */
+  private function setArgs( string $args )
+  {
+    $args = explode( '&', $args );
+    foreach ( $args as $i => $arg )
+    {
+      [$key, $value] = explode( '=', $arg );
+      if ( !$value ) continue;
+      $this->request['args'][$key] = $value;
+    }
   }
 
 
