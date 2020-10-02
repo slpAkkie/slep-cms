@@ -44,9 +44,9 @@ class Router
 
 
   /**
-   * Объект запроса
+   * Запрос
    *
-   * @var Request
+   * @var array
    */
   private $request;
 
@@ -62,7 +62,6 @@ class Router
     $this->di = $di;
 
     $this->URL = new URL( $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
-    $this->request = new Request( $_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD'] );
   }
 
 
@@ -79,12 +78,12 @@ class Router
     /**
      * Разобьем на две части: Запрос и аргументы
      */
-    $requestArray = explode( '?', $this->request->getRequest() );
+    $requestArray = explode( '?', $_SERVER['REQUEST_URI'] );
 
     /**
      * Запишем какой путь был запрошен
      */
-    $this->request->path = explode( '/', $this->request->normilizePath( $requestArray[0] ) );
+    $this->request['path'] = explode( '/', Request::normilizePath( $requestArray[0] ) );
 
     /**
      * Определим переданные аргументы
@@ -93,7 +92,7 @@ class Router
     foreach ( $requestArray[1] as $i => $arg )
     {
       [$key, $value] = explode( '=', $arg );
-      $this->request->args[$key] = $value;
+      $this->request['args'][$key] = $value;
     }
 
     /**
@@ -105,7 +104,12 @@ class Router
      * Сохраним в зависимости запрос и url
      */
     $this->di->set('url', $this->URL);
-    $this->di->set('request', $this->request);
+    $this->di->set('request', new Request(
+                                          $_SERVER['REQUEST_METHOD'],
+                                          $this->request['path'],
+                                          $this->request['args'],
+                                          $this->request['controller']
+                                          ) );
   }
 
 
@@ -116,12 +120,12 @@ class Router
    */
   private function identController()
   {
-    $this->request->controller = 'Web';
+    $this->request['controller'] = 'Web';
 
-    if ( !$this->request->path[0] ) return;
+    if ( !$this->request['path'][0] ) return;
 
-    if ( !file_exists( __DIR__ . '\\Controllers\\' . ucfirst( $this->request->path[0] ) . '_Controller.php' ) ) return;
-    else $this->request->controller = ucfirst( $this->request->path[0] );
+    if ( !file_exists( __DIR__ . '\\Controllers\\' . ucfirst( $this->request['path'][0] ) . '_Controller.php' ) ) return;
+    else $this->request['controller'] = ucfirst( $this->request['path'][0] );
   }
 
 
