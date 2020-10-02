@@ -37,7 +37,7 @@ class URL
    *
    * @return string
    */
-  public function getUrl()
+  public function __toString()
   {
     return $this->initial;
   }
