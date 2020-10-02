@@ -28,7 +28,7 @@ abstract class Controller
    *
    * @var DI
    */
-  private $di;
+  protected $di;
 
 
 
@@ -41,6 +41,11 @@ abstract class Controller
   {
     $this->di = $di;
   }
+
+  /**
+   * Запускает контроллер на выполнение
+   */
+  abstract public function run();
 
 
 
