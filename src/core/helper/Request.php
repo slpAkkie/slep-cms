@@ -24,27 +24,7 @@ class Request
 
 
   /**
-   * Исходная строка запросы
-   *
-   * @var string
-   */
-  private $initial;
-
-
-
-  /**
-   * Геттер для строки запроса
-   *
-   * @return string
-   */
-  public function getRequest() {
-    return $this->initial;
-  }
-
-
-
-  /**
-   * Каким методом был отправлен запрос
+   * Метод запроса
    *
    * @var string
    */
@@ -66,9 +46,20 @@ class Request
   /**
    * Путь запроса
    *
-   * @var string
+   * @var array
    */
-  public $path;
+  private $path;
+
+
+
+  /**
+   * Геттер для пути
+   *
+   * @return string
+   */
+  public function getPath() {
+    return $this->path;
+  }
 
 
 
@@ -77,16 +68,38 @@ class Request
    *
    * @var array
    */
-  public $args;
+  private $args;
 
 
 
   /**
-   * Какой контроллер был запрошен
+   * Геттер для аргументов
+   *
+   * @return string
+   */
+  public function getArgs() {
+    return $this->args;
+  }
+
+
+
+  /**
+   * Запрошенный контроллер
    *
    * @var string
    */
-  public $controller;
+  private $controller;
+
+
+
+  /**
+   * Геттер для контроллера
+   *
+   * @return string
+   */
+  public function getController() {
+    return $this->controller;
+  }
 
 
 
@@ -96,10 +109,12 @@ class Request
    * @param DI $di Объект класса DI
    * @param string $method Метод которым был отправлен запрос
    */
-  public function __construct( $path, $method )
+  public function __construct( string $method, array $path, array $args, string $controller )
   {
-    $this->initial = $path;
     $this->method = $method;
+    $this->path = $path;
+    $this->args = $args;
+    $this->controller = $controller;
   }
 
 
@@ -111,7 +126,7 @@ class Request
    *
    * @return string
    */
-  public function normilizePath( $path ) {
+  public static function normilizePath( $path ) {
     return preg_replace( '/^(\/(.*)\/|\/(.*))$/', '$2$3', $path );
   }
 
