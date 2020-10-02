@@ -10,6 +10,8 @@
 namespace Core;
 
 use Helper\DI;
+use Helper\URL;
+use Helper\Request;
 
 
 
@@ -20,7 +22,9 @@ use Helper\DI;
  *
  * Разбирает запрос и определяет запрашиваемый контекст и страницу
  */
-class Router {
+class Router
+{
+
 
 
   /**
@@ -32,27 +36,19 @@ class Router {
 
 
   /**
-   * Полный URL, по которому был произведен запрос
+   * Объект url
    *
-   * @var string
+   * @var URL
    */
   private $URL;
 
 
   /**
-   * Запрос
+   * Объект запроса
    *
-   * @var string
+   * @var Request
    */
   private $request;
-
-
-  /**
-   * Разобранный запрос
-   *
-   * @var array
-   */
-  private $dRequest;
 
 
 
@@ -61,11 +57,12 @@ class Router {
    *
    * @param DI $di Объект класса DI
    */
-  public function __construct( $di ) {
+  public function __construct( $di )
+  {
     $this->di = $di;
 
-    $this->URL = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-    $this->request = $_SERVER['REQUEST_URI'];
+    $this->URL = new URL( $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+    $this->request = new Request( $_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD'] );
   }
 
 
@@ -75,26 +72,28 @@ class Router {
    *
    * @return array Запрошенный путь [path] и переданные аргументы [args]
    */
-  public function dissasemble() {
-    if ( !$this->checkURL() ) die( 'Был передан не правильный запрос' );
+  public function dissasemble()
+  {
+    if ( !$this->URL->validate() ) die( 'Был передан не правильный запрос' );
 
     /**
      * Разобьем на две части: Запрос и аргументы
      */
-    $requestArray = explode( '?', $this->request );
+    $requestArray = explode( '?', $this->request->getRequest() );
 
     /**
      * Запишем какой путь был запрошен
      */
-    $this->dRequest['path'] = explode( '/', $this->normilizeRequest( $requestArray[0] ) );
+    $this->request->path = explode( '/', $this->request->normilizePath( $requestArray[0] ) );
 
     /**
      * Определим переданные аргументы
      */
     $requestArray[1] = explode( '&', $requestArray[1] );
-    foreach ( $requestArray[1] as $i => $arg ) {
+    foreach ( $requestArray[1] as $i => $arg )
+    {
       [$key, $value] = explode( '=', $arg );
-      $this->dRequest['args'][$key] = $value;
+      $this->request->args[$key] = $value;
     }
 
     /**
@@ -103,9 +102,10 @@ class Router {
     $this->identController();
 
     /**
-     * Сохраним в зависимости разобранный запрос
+     * Сохраним в зависимости запрос и url
      */
-    $this->di->set('requestData', $this->dRequest);
+    $this->di->set('url', $this->URL);
+    $this->di->set('request', $this->request);
   }
 
 
@@ -114,38 +114,16 @@ class Router {
    * Определяет контроллер
    * По умолчанию устанавливается контроллер Web, если был найден запрошенный контроллер, то устанавливается он
    */
-  private function identController() {
-    $this->dRequest['controller'] = 'Web';
+  private function identController()
+  {
+    $this->request->controller = 'Web';
 
-    if ( !$this->dRequest['path'][0] ) return;
+    if ( !$this->request->path[0] ) return;
 
-    if ( !file_exists( __DIR__ . '\\Controllers\\' . ucfirst( $this->dRequest['path'][0] ) . '_Controller.php' ) ) return;
-    else $this->dRequest['controller'] = ucfirst( $this->dRequest['path'][0] );
+    if ( !file_exists( __DIR__ . '\\Controllers\\' . ucfirst( $this->request->path[0] ) . '_Controller.php' ) ) return;
+    else $this->request->controller = ucfirst( $this->request->path[0] );
   }
 
-
-
-  /**
-   * Определяет валидность запрошенного URL
-   *
-   * @return bool
-   */
-  private function checkURL() {
-    return preg_match( '/^(https?:\/\/|http?:\/\/)?([\d\w\.-]+)\.([a-z0-9]{2,6}\.?)(\/[\w\.]+)*\/?(\?[\w\d=&]*){0,1}$/', $this->URL );
-  }
-
-
-
-  /**
-   * Нормализует запрос, избавляется от ведущего и конечного '/'
-   *
-   * @param string $path Запрос
-   *
-   * @return string
-   */
-  private function normilizeRequest( $path ) {
-    return preg_replace( '/^(\/(.*)\/|\/(.*))$/', '$2$3', $path );
-  }
 
 
 }
