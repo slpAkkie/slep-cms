@@ -77,7 +77,7 @@ class Database
    *
    * @return PDOStatement Возвращает объект запроса
    */
-  public function execute( $sql )
+  public function execute( string $sql )
   {
     $request = $this->connection->prepare( $sql );
 
@@ -93,7 +93,7 @@ class Database
    *
    * @return array Массив строк выборки
    */
-  public function query( $sql )
+  public function query( string $sql )
   {
     $request = $this->execute( $sql );
 

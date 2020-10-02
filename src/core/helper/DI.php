@@ -37,7 +37,7 @@ class DI
    *
    * @return any - Возвращает зависимость любого типа или null если такой зависимости нет
    */
-  public function get( $key )
+  public function get( string $key )
   {
     return  $this->isset( $key )
             ? $this->$container[$key]
@@ -54,7 +54,7 @@ class DI
    *
    * @return Возвращает экземляр класса DI
    */
-  public function set( $key, $value )
+  public function set( string $key, $value )
   {
     $this->container[$key] = $value;
 
@@ -70,7 +70,7 @@ class DI
    *
    * @return bool
    */
-  private function isset( $key )
+  private function isset( string $key )
   {
     return  $this->$container[$key]
             ? true

@@ -49,7 +49,7 @@ class URL
    *
    * @param string url Строка URL
    */
-  public function __construct( $url )
+  public function __construct( string $url )
   {
     $this->initial = $url;
   }

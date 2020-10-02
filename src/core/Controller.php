@@ -37,7 +37,7 @@ abstract class BaseController
    *
    * @param DI $di Объект класса DI
    */
-  public function __construct( $di )
+  public function __construct( DI $di )
   {
     $this->di = $di;
   }

@@ -57,7 +57,7 @@ class Router
    *
    * @param DI $di Объект класса DI
    */
-  public function __construct( $di )
+  public function __construct( DI $di )
   {
     $this->di = $di;
 
@@ -122,7 +122,11 @@ class Router
   {
     $this->request['controller'] = 'Web';
 
-    if ( !$this->request['path'][0] ) return;
+    if ( !$this->request['path'][0] )
+    {
+      $this->request['path'][0] = 'index';
+      return;
+    }
 
     if ( !file_exists( __DIR__ . '\\Controllers\\' . ucfirst( $this->request['path'][0] ) . '_Controller.php' ) ) return;
     else $this->request['controller'] = ucfirst( $this->request['path'][0] );

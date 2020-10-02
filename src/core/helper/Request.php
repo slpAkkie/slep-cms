@@ -126,7 +126,7 @@ class Request
    *
    * @return string
    */
-  public static function normilizePath( $path ) {
+  public static function normilizePath( string $path ) {
     return preg_replace( '/^(\/(.*)\/|\/(.*))$/', '$2$3', $path );
   }
 
