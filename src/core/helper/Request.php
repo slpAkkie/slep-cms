@@ -84,11 +84,11 @@ class Request
 
 
   /**
-   * Запрошенный контроллер
+   * Имя запрошенного контроллера
    *
    * @var string
    */
-  private $controller;
+  private $controllerName;
 
 
 
@@ -97,8 +97,28 @@ class Request
    *
    * @return string
    */
-  public function getController() {
-    return $this->controller;
+  public function getControllerName() {
+    return $this->controllerName;
+  }
+
+
+
+  /**
+   * Имя файла запрошенного контроллера
+   *
+   * @var string
+   */
+  private $controllerFileName;
+
+
+
+  /**
+   * Геттер для контроллера
+   *
+   * @return string
+   */
+  public function getControllerFileName() {
+    return $this->controllerFileName;
   }
 
 
@@ -114,7 +134,8 @@ class Request
     $this->method = $method;
     $this->path = $path;
     $this->args = $args;
-    $this->controller = $controller;
+    $this->controllerName = $controller . 'Controller';
+    $this->controllerFileName = $controller . '_Controller.php';
   }
 
 
