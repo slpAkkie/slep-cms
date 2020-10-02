@@ -7,8 +7,23 @@
  * @version 0.0.1
  */
 
+use Core\Controller;
 
 
 
 
-class ManagerController extends BaseController { }
+
+/**
+ * Контроллер Manager контекста
+ */
+class ManagerController extends Controller {
+
+
+
+  public function run() {
+    print_r($this->di->get('request')->getArgs()['action']);
+  }
+
+
+
+}
