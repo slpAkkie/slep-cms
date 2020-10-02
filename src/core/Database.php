@@ -20,7 +20,8 @@ use \PDO;
  *
  * Запросы к базе данных на базе PDO
  */
-class Database {
+class Database
+{
 
 
 
@@ -36,7 +37,8 @@ class Database {
   /**
    * Установить соединение с БД
    */
-  public function __construct() {
+  public function __construct()
+  {
     $this->connect();
   }
 
@@ -45,7 +47,8 @@ class Database {
   /**
    * Устанавливает соединение с БД по средствам PDO
    */
-  private function connect() {
+  private function connect()
+  {
     /**
      * TODO: Пренести в отдельный config файл
      */
@@ -74,7 +77,8 @@ class Database {
    *
    * @return PDOStatement Возвращает объект запроса
    */
-  public function execute( $sql ) {
+  public function execute( $sql )
+  {
     $request = $this->connection->prepare( $sql );
 
     return $request->execute() ? $request : null;
@@ -89,7 +93,8 @@ class Database {
    *
    * @return array Массив строк выборки
    */
-  public function query( $sql ) {
+  public function query( $sql )
+  {
     $request = $this->execute( $sql );
 
     if ( $request === null ) die( 'Запрос к базе данных привел к ошибке' );

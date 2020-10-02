@@ -18,7 +18,8 @@ namespace Core;
  *
  * Описывает обязательные методы и поля для контроллеров
  */
-abstract class BaseController {
+abstract class BaseController
+{
 
 
 
@@ -36,7 +37,8 @@ abstract class BaseController {
    *
    * @param DI $di Объект класса DI
    */
-  public function __construct( $di ) {
+  public function __construct( $di )
+  {
     $this->di = $di;
   }
 

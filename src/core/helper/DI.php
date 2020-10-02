@@ -18,7 +18,8 @@ namespace Helper;
  *
  * Хранит и дает доступ к зависимостям необходимые для работы приложения
  */
-class DI {
+class DI
+{
 
 
 
@@ -36,7 +37,8 @@ class DI {
    *
    * @return any - Возвращает зависимость любого типа или null если такой зависимости нет
    */
-  public function get( $key ) {
+  public function get( $key )
+  {
     return  $this->isset( $key )
             ? $this->$container[$key]
             : null;
@@ -52,7 +54,8 @@ class DI {
    *
    * @return Возвращает экземляр класса DI
    */
-  public function set( $key, $value ) {
+  public function set( $key, $value )
+  {
     $this->container[$key] = $value;
 
     return $this;
@@ -67,7 +70,8 @@ class DI {
    *
    * @return bool
    */
-  private function isset( $key ) {
+  private function isset( $key )
+  {
     return  $this->$container[$key]
             ? true
             : false;
