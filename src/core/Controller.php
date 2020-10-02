@@ -14,11 +14,11 @@ namespace Core;
 
 
 /**
- * Абстрактный класс BaseController
+ * Абстрактный класс Controller
  *
  * Описывает обязательные методы и поля для контроллеров
  */
-abstract class BaseController
+abstract class Controller
 {
 
 
@@ -37,7 +37,7 @@ abstract class BaseController
    *
    * @param DI $di Объект класса DI
    */
-  public function __construct( DI $di )
+  public function __construct( \Helper\DI $di )
   {
     $this->di = $di;
   }
