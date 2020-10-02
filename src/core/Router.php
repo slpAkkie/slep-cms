@@ -36,7 +36,7 @@ class Router
 
 
   /**
-   * Объект url
+   * Запрошенный url
    *
    * @var URL
    */
@@ -61,7 +61,7 @@ class Router
   {
     $this->di = $di;
 
-    $this->URL = new URL( $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+    $this->url = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
   }
 
 
@@ -73,7 +73,7 @@ class Router
    */
   public function dissasemble()
   {
-    if ( !$this->URL->validate() ) die( 'Был передан не правильный запрос' );
+    if ( !URL::validate( $this->url ) ) die( 'Был передан не правильный запрос' );
 
     /**
      * Разобьем на две части: Запрос и аргументы
@@ -103,7 +103,7 @@ class Router
     /**
      * Сохраним в зависимости запрос и url
      */
-    $this->di->set('url', $this->URL);
+    $this->di->set( 'url', new URL( $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ) );
     $this->di->set('request', new Request(
                                           $_SERVER['REQUEST_METHOD'],
                                           $this->request['path'],
