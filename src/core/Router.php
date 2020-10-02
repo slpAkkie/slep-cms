@@ -142,8 +142,6 @@ class Router
       $this->request['path'][0] = 'index';
     } elseif ( file_exists( __DIR__ . '\\Controllers\\' . ucfirst( $this->request['path'][0] ) . '_Controller.php' ) )
       $this->request['controller'] = ucfirst( $this->request['path'][0] );
-
-    $this->request['controller'] .=  '_Controller.php';
   }
 
 
