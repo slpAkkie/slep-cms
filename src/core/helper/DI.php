@@ -40,7 +40,7 @@ class DI
   public function get( string $key )
   {
     return  $this->isset( $key )
-            ? $this->$container[$key]
+            ? $this->container[$key]
             : null;
   }
 
@@ -72,7 +72,7 @@ class DI
    */
   private function isset( string $key )
   {
-    return  $this->$container[$key]
+    return  $this->container[$key]
             ? true
             : false;
   }
