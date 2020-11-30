@@ -1,6 +1,6 @@
 {
   "name": "slep-cms",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "My course project. Lightweight and convenient CMS.",
   "main": "gulpfile.js",
   "scripts": {
