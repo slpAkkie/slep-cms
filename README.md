@@ -1,3 +1,7 @@
-# slep-cms
+# Yoko
 
-Система управления сайтом
+Самописная CMS система
+
+## Автора
+
+Alexandr Shamanin (@slpAkkie)
