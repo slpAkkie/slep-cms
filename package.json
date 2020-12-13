@@ -1,7 +1,7 @@
 {
-  "name": "slep-cms",
+  "name": "Yoko",
   "version": "0.0.3",
-  "description": "My course project. Lightweight and convenient CMS.",
+  "description": "Самописная CMS система",
   "main": "gulpfile.js",
   "scripts": {
     "cleanDev": "gulp cleanDev",
